@@ -1,0 +1,24 @@
+{
+    "name": "nigestream/push",
+    "description": "一个敏捷开发的深度orm的php开发框架",
+    "keywords": [
+        "xwork",
+        "php framework",
+        "agility"
+    ],
+    "authors": [
+        {
+            "name": "nigestream",
+            "email": "nigestream@163.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Xwork\\": "src/"
+        }
+    }
+}
