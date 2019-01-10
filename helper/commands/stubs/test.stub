@@ -1,0 +1,25 @@
+<?php
+include_once(dirname(__FILE__) . "/../../renmai.com/sys/PathDefine.php");
+include_once(ROOT_TOP_PATH . "/../tests/Assembly.php");
+TheSystem::init(__FILE__);
+
+class DummyTest extends \PHPUnit\Framework\TestCase
+{
+    private $param;
+
+    protected function setUp()
+    {
+        $this->param = 'hello';
+    }
+
+    public function testFoo()
+    {
+        $bar = "bar";
+        $this->assertNotEmpty($bar);
+    }
+
+    protected function tearDown()
+    {
+        $this->param = null;
+    }
+}

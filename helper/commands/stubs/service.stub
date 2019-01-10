@@ -1,0 +1,9 @@
+<?php
+
+class DummyService
+{
+    public function __construct()
+    {
+
+    }
+}

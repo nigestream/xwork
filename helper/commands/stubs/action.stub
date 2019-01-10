@@ -1,0 +1,21 @@
+<?php
+class DummyAction extends FooBaseAction
+{
+    public function doList()
+    {
+        $data = [
+
+        ];
+        $this->result['data'] = $data;
+        return self::TEXTJSON;
+    }
+
+    public function doAdd()
+    {
+        $data = [
+
+        ];
+        $this->result['data'] = $data;
+        return self::TEXTJSON;
+    }
+}

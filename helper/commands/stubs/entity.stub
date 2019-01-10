@@ -1,0 +1,37 @@
+<?php
+
+/*
+ * Dummy 实体类
+ */
+
+class Dummy extends Entity
+{
+
+    protected function init_keys() {
+        $this->_keys = self::getKeysDefine();
+    }
+
+    public static function getKeysDefine() {
+        return array(
+            '',      //
+            );
+    }
+
+    protected function init_keys_lock() {
+        $this->_keys_lock = [];
+    }
+
+    protected function init_belongtos() {
+        $this->_belongtos = [];
+    }
+
+    public static function createByBiz(array $row) {
+        DBC::requireNotEmpty($row, "Dummy::createByBiz row cannot empty");
+
+        $default = array();
+//        $default["status"] = 0;
+
+        $row += $default;
+        return new self($row);
+    }
+}

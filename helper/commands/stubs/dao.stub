@@ -1,0 +1,20 @@
+<?php
+
+/*
+ * DummyDao
+ */
+
+class DummyDao extends Dao
+{
+    /**
+     * getByName
+     */
+    public static function getByName($name) {
+        $cond = " AND  ";
+
+        $bind = [];
+        $bind[':name'] = $name;
+
+        return Dao::getEntityByCond('Dummy', $cond, $bind);
+    }
+}
