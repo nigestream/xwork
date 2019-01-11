@@ -8,7 +8,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\ArrayInput;
 
 
-class InitCommand extends Command
+class MakeInitCommand extends Command
 {
     protected function configure() {
         $this
@@ -72,6 +72,7 @@ class InitCommand extends Command
         $this->createDefaultFileByCommand('make:dao', ['command' => 'make:dao', 'name' => 'User'], $input, $output);
         $this->createDefaultFileByCommand('make:service', ['command' => 'make:service', 'name' => 'User'], $input, $output);
         $this->createDefaultFileByCommand('make:action', ['command' => 'make:service', 'app' => 'www', 'name' => 'User'], $input, $output);
+        $fs->symlink(__DIR__ . "/../../xworker", $baseDir . '/xworker');
         $io->success("success");
     }
 
@@ -106,7 +107,9 @@ class InitCommand extends Command
                 $arr['autoload']['psr-4'] = [];
             }
         }
-        $arr['autoload']['classmap'][] = 'app/domain/entity';
+        if (!in_array('app/domain/entity', $arr['autoload']['classmap'])) {
+            $arr['autoload']['classmap'][] = 'app/domain/entity';
+        }
         $arr['autoload']['psr-4']['App\\'] = "app/";
         $ret = json_encode($arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         file_put_contents($filepath, $ret);

@@ -28,9 +28,7 @@ class MakeTestCommand extends Command
         $fs = new \Symfony\Component\Filesystem\Filesystem();
         $target_dir = ROOT . DIRECTORY_SEPARATOR . 'tests';
         if (!$fs->exists($target_dir)) {
-            $io = new SymfonyStyle($input, $output);
-            $io->error("单元测试文件夹 tests 不存在");
-            return;
+            $fs->mkdir($target_dir);
         }
         $name = $input->getArgument('name');
         $nameArr = preg_split('/[\/]/', $name);
