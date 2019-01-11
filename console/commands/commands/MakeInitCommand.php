@@ -63,7 +63,6 @@ class MakeInitCommand extends Command
         //新建www子系统
         $this->createDefaultFileByCommand('make:subsys', ['name' => 'www'], $input, $output);
         $this->createDefaultFileByCommand('make:action', ['app' => 'www', 'name' => 'User'], $input, $output);
-
         $fs->symlink(__DIR__ . "/../../xworker", $baseDir . '/xworker');
         $io->success("success");
     }

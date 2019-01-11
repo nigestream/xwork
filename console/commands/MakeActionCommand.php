@@ -39,8 +39,8 @@ class MakeActionCommand extends Command
         $finder->files()->name('action.stub')->in(__DIR__.'/stubs');
         foreach ($finder as $file) {
             $content = xwork_console_replaceVar($file->getContents(), [
-                'dummy' => $input->getArgument('name'),
-                'foo' => $input->getArgument('app')
+                '{{dummy}}' => $input->getArgument('name'),
+                '{{foo}}' => $input->getArgument('app')
             ]);
 
             $target = $dir . DIRECTORY_SEPARATOR . ucfirst($input->getArgument('name')) . 'Action.php';
