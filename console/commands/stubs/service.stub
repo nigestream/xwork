@@ -1,5 +1,7 @@
 <?php
 
+namespace App\domain\service;
+
 class DummyService
 {
     public function __construct()

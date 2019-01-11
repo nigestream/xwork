@@ -1,7 +1,11 @@
 <?php
-include_once(dirname(__FILE__) . "/../../renmai.com/sys/PathDefine.php");
-include_once(ROOT_TOP_PATH . "/../tests/Assembly.php");
-TheSystem::init(__FILE__);
+
+use Xwork\TheSystem;
+
+ini_set('display_errors', 1);
+require_once dirname(__FILE__) . '/../vendor/autoload.php';
+include_once(dirname(__FILE__) . "/../app/sys/PathDefine.php");
+TheSystem::init(dirname(__FILE__) . '/../app/sys/config/config.php', __FILE__);
 
 class DummyTest extends \PHPUnit\Framework\TestCase
 {

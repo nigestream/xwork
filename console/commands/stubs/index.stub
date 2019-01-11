@@ -1,0 +1,15 @@
+<?php
+
+use Xwork\xmvc\XController;
+use Xwork\TheSystem;
+
+
+include_once(dirname(__FILE__) . "/../../sys/PathDefine.php");
+include_once(ROOT_TOP_PATH . "/../vendor/autoload.php");
+$configFile = dirname(__FILE__) . '/../../sys/config/config.php';
+TheSystem::init($configFile, __FILE__, true);
+
+$tplPath = ROOT_TOP_PATH . "/{{subsys}}/tpl/";
+$mapFile = ROOT_TOP_PATH . "/{{subsys}}/ActionMap.properties.php";
+$controller = new XController("\\App\\{{subsys}}\\action", $mapFile, $tplPath);
+$controller->process();

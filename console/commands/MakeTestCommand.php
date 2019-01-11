@@ -45,7 +45,7 @@ class MakeTestCommand extends Command
         //拷贝模板，替换变量，生成文件
         $finder->files()->name('test.stub')->in(__DIR__.DIRECTORY_SEPARATOR.'stubs');
         foreach ($finder as $file) {
-            $content = replaceVar($file->getContents(), ['dummy' => $input->getArgument('name')]);
+            $content = xwork_console_replaceVar($file->getContents(), ['dummy' => $input->getArgument('name')]);
 
             $target = $target_dir . DIRECTORY_SEPARATOR . ucfirst($name) . 'Test.php';
 
@@ -55,6 +55,5 @@ class MakeTestCommand extends Command
             }
             file_put_contents($target, $content);
         }
-        echo '文件路径：' . $target;
     }
 }

@@ -1,0 +1,146 @@
+<?php
+/**
+ * Class BaseAction
+ */
+namespace App\domain;
+use Xwork\xcommon\Config;
+use Xwork\xcommon\log\Log;
+use Xwork\xmvc\XAction;
+use Xwork\xmvc\XContext;
+use Xwork\xmvc\XRequest;
+
+class BaseAction extends XAction
+{
+    protected $action = null;
+    protected $method = null;
+    protected $result = [];
+
+    const PAGE_SIZE = 20;
+
+    public function __construct () {
+        $this->result['errno'] = 0;
+        $this->result['errmsg'] = '';
+        $this->result['data'] = [];
+
+        // 域名
+        XContext::setValue("website_domain", Config::getConfig("website_domain"));
+
+        // 子系统uri
+        XContext::setValue("audit_uri", Config::getConfig("audit_uri"));
+        XContext::setValue("www_uri", Config::getConfig("www_uri"));
+        XContext::setValue("wx_uri", Config::getConfig("wx_uri"));
+        XContext::setValue("app_uri", Config::getConfig("app_uri"));
+        XContext::setValue("partner_uri", Config::getConfig("partner_uri"));
+
+        // 静态图片
+        XContext::setValue("img_uri", Config::getConfig("img_uri"));
+
+        // 图片数据，自动裁剪功能
+        XContext::setValue("photo_uri", Config::getConfig("photo_uri"));
+
+        // theUrl 和 refererUrl
+//        $http = FUtil::isHttps() ? 'https' : 'http';
+        $http = 'http';
+        $theUrl = $http . "://" . getenv('HTTP_HOST') . "" . getenv('REQUEST_URI');
+        XContext::setValue("theUrl", urlencode($theUrl));
+        XContext::setValue("refererUrl", urlencode(getenv('HTTP_REFERER')));
+
+        // icp 和 company
+        XContext::setValue("icp", Config::getConfig("icp"));
+        XContext::setValue("company", Config::getConfig("company", '奥众技术实验室'));
+
+        // 微信token
+        XContext::setValue("weixin_token", Config::getConfig("weixin_token"));
+
+        // 子域名
+        $host = getenv('HTTP_HOST');
+        $pos = strpos($host, '.');
+        $xdomain = substr($host, 0, $pos);
+        XContext::setValue("xdomain", strtolower($xdomain));
+
+        XContext::setValue("the_domain", strtolower($host));
+
+        // 邀请码
+        $ff = XRequest::getValue("ff", '');
+        if ($ff) {
+            $domain = Config::getConfig("website_domain");
+            $expire = time() + 100 * 365 * 24 * 3600;
+            setcookie("ff", $ff, $expire, '/', $domain);
+        } else {
+            $ff = $_COOKIE['ff'] ?? '';
+        }
+
+        if ($ff) {
+            Log::trace("ff=" . $ff);
+            XContext::setValue("ff", $ff);
+        }
+
+        // 设置开发环境
+        $dev_user = XRequest::getValue('dev_user', '');
+        if ($dev_user) {
+            $domain = Config::getConfig("website_domain");
+            setcookie('dev_user', $dev_user, time() + 3600 * 24 * 365, '/', $domain);
+        }
+        XContext::setValue("dev_user", $dev_user);
+
+        $this->action = XRequest::getValue('action', '');
+        $this->method = XRequest::getValue('method', '');
+
+        $vConsole = XRequest::getValue('vConsole', '');
+
+    }
+
+    public function _hookActionFinish () {
+        if (! XContext::getValue('json')) {
+            XContext::setValue('json', $this->result);
+        }
+    }
+
+    // 获取设备类型
+    public static function userAgent2deviceType () {
+        $user_agent = strtolower(getenv('HTTP_USER_AGENT'));
+
+        Log::trace($user_agent);
+
+        $is_ios = (strpos($user_agent, 'ios')) ? true : false;
+        $is_iphone = (strpos($user_agent, 'iphone')) ? true : false;
+        $is_ipad = (strpos($user_agent, 'ipad')) ? true : false;
+        $is_itouch = (strpos($user_agent, 'itouch')) ? true : false;
+
+        $is_android = (strpos($user_agent, 'android')) ? true : false;
+
+        if ($is_ios || $is_iphone || $is_ipad || $is_itouch) {
+            return "ios";
+        }
+
+        if ($is_android) {
+            return "android";
+        }
+
+        if ($user_agent == 'okhttp/2.4.0') {
+            return "android";
+        }
+
+        return 'pc';
+    }
+
+
+    protected function output () {
+        header('Content-Type: application/javascript; charset=utf-8');
+        $this->result['errno'] = $this->result['errno'] . '';
+        echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
+        exit();
+    }
+
+    protected function returnError($errmsg = '', $errno = -1, $data = []) {
+        $this->result['errmsg'] = $errmsg;
+        $this->result['errno'] = $errno;
+        $this->result['data'] = empty($data) ? (object)$data : $data;
+        $this->output();
+    }
+
+    protected function return403() {
+        header('HTTP/1.0 403 Forbidden');
+        exit();
+    }
+}

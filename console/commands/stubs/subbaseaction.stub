@@ -1,0 +1,15 @@
+<?php
+namespace App\{{subsys}};
+
+use App\domain\BaseAction;
+/**
+ * {{subsys}}子系统action的基类
+ * 可以在这里做登录拦截等等基础操作
+ */
+
+class {{subsys}}BaseAction extends BaseAction
+{
+    public function __construct() {
+        parent::__construct();
+    }
+}

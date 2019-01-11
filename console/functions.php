@@ -1,6 +1,6 @@
 <?php
 
-function replaceVar($str, array $replace = null)
+function xwork_console_replaceVar($str, array $replace = null)
 {
     $line = $str;
     if (empty($replace)) {

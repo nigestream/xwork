@@ -1,0 +1,23 @@
+<?php
+/**
+ * DummyDao
+ */
+
+namespace App\domain\dao;
+use Xwork\xmap\Dao;
+
+class DummyDao extends Dao
+{
+    public function __construct(array $dbconf = array()) {
+        parent::__construct(\Dummy::class, $dbconf);
+    }
+
+    public function getByName($name) {
+        $cond = " AND $name=:name ";
+        $bind = [
+            ":name" => $name
+        ];
+
+        return $this->getEntityByCond($cond, $bind);
+    }
+}

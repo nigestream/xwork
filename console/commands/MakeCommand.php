@@ -41,11 +41,10 @@ class MakeCommand extends Command
         //拷贝命令模板，替换变量，生成命令类
         $this->finder->files()->name('command.stub')->in(__DIR__.'/stubs');
         foreach ($this->finder as $file) {
-            $content = replaceVar($file->getContents(), ['dummy' => $input->getArgument('name')]);
+            $content = xwork_console_replaceVar($file->getContents(), ['dummy' => $input->getArgument('name')]);
             $target = __DIR__ . DIRECTORY_SEPARATOR . ucfirst($input->getArgument('name')) . 'Command.php';
             file_put_contents($target, $content);
         }
-        require_once ROOT_TOP_PATH . DIRECTORY_SEPARATOR . 'generatorAssembly.console.php';
     }
 
 }

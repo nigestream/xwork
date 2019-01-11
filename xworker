@@ -2,11 +2,12 @@
 
 <?php
 
-const ROOT_TOP_PATH = __DIR__ . DIRECTORY_SEPARATOR . 'console';
-const SYS_ROOT = __DIR__ . DIRECTORY_SEPARATOR .'renmai.com';
+//const SYS_ROOT = __DIR__ . DIRECTORY_SEPARATOR .'app';
+const SYS_ROOT = __DIR__  . '/../../app';
 const ROOT = __DIR__;
 
-require __DIR__.'/console/vendor/autoload.php';
+//require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../autoload.php';
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Finder\Finder;
@@ -17,6 +18,7 @@ $finder = new Finder();
 $finder->files()->name('*Command.php')->in(__DIR__.'/console/commands');
 foreach ($finder as $file) {
     $clsName = rtrim($file->getFilename(), '.php');
+    require_once ($file->getRealPath());
     //加载命令
     $application->add(new $clsName);
 }

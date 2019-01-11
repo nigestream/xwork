@@ -1,4 +1,7 @@
 <?php
+namespace App\www\action;
+use App\www\wwwBaseAction;
+
 class DummyAction extends FooBaseAction
 {
     public function doList()
