@@ -58,7 +58,6 @@ class Dao extends DaoBase
         $dbconf['tableno'] = $this->tableno;
         $dbconf['database'] = $this->database;
         $entityClassName = $this->entityClassName;
-        echo $entityClassName, "\n";
         $entity = new $entityClassName($row, $dbconf, $id, $version, $createtime, $updatetime);
 
         DBC::$needDBC --;

@@ -215,7 +215,6 @@ class UnitOfWork
 
         // 生成key
         $key = $this->genKey($entity->getPrimaryId(), $entity->getClassName(), $entity->getDatabaseName());
-        echo __METHOD__, " ", $key, "\n";
 
         // 加入 entityMap
         $this->entityMap[$key] = $entity;
@@ -448,7 +447,6 @@ class UnitOfWork
 
     public function getEntity($id, $entityClassName = "", $database = '') {
         $key = $this->genKey($id, $entityClassName, $database);
-        echo __METHOD__, " ", $key, "\n";
 
         // 检查 loadMap
         if (array_key_exists($key, (array)$this->loadMap)) {
