@@ -17,7 +17,7 @@ class MakeNewCommand extends Command
             ->setName('make:new')
             ->addArgument('name', InputArgument::REQUIRED)
             // the short description shown while running "php bin/console list"
-            ->setDescription('根据表新建相关类entity dao service...')
+            ->setDescription('根据表新建相关组件类: entity dao service...')
             ->setHelp('如: php xworker make:new Dummy')
         ;
     }

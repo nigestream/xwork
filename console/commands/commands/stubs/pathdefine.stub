@@ -1,4 +1,0 @@
-<?php
-if (! defined("ROOT_TOP_PATH")) {
-    define("ROOT_TOP_PATH", dirname(__FILE__) . "/..");
-}

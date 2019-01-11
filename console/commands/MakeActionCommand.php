@@ -19,9 +19,6 @@ class MakeActionCommand extends Command
             // the short description shown while running "php bin/console list"
             ->setDescription('创建action类, 如make:action www Dummy')
             ->setHelp('如: php xworker make:action www Dummy')
-
-            // the short description shown while running "php bin/console list"
-            ->setDescription('')
         ;
     }
 
