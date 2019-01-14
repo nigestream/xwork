@@ -281,10 +281,11 @@ class EntityBase
             $dbconf['database'] = $database;
             $dbconf['pkeyName'] = $pkeyName;
 
+            $daotype = "\\Xwork\\xmap\\$daotype";
             $dao = new $daotype($belongto["type"], $dbconf);
             $idstr = $belongto["key"];
 
-            return $dao->getById($this->$idstr); // 可能为空
+            return $dao->getEntityById($this->$idstr); // 可能为空
         }
 
         DBC::requireTrue(in_array($key, $this->_keys), "$key not in _keys", -1, "$key not in _keys");

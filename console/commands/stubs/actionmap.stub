@@ -16,3 +16,4 @@ $actionMaps['default_interceptor'] = ['ApplicationSessionModifyInterceptor'];
 //默认class 默认method
 $actionMaps['default_class'] = "index";
 $actionMaps['default_method'] = "index";
+return [$rewrites, $actionMaps];

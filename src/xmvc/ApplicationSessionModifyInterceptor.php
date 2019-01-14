@@ -1,5 +1,7 @@
 <?php
 namespace Xwork\xmvc;
+use Xwork\xmap\BeanFinder;
+
 /**
  * ApplicationSessionModifyInterceptor
  * @desc		应用会话修改拦截器

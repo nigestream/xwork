@@ -47,24 +47,17 @@ abstract class DaoBase
         $database = '';
         $pkeyName = 'id';
 
-        // 向前兼容,这个参数曾经名称为 $tableno
-        if (is_numeric($dbconf) && $dbconf) {
-            $tableno = $dbconf; // 数字 : 表暂列后缀
-        } elseif (is_string($dbconf) && $dbconf) {
-            $database = $dbconf; // 字符串 : 库名
-        } elseif (is_array($dbconf)) {
-            if (isset($dbconf['tableno']) && $dbconf['tableno']) {
-                $tableno = $dbconf['tableno'];
-            }
-            if (isset($dbconf['database']) && $dbconf['database']) {
-                $database = $dbconf['database'];
-            }
-            if (isset($dbconf['pkeyName']) && $dbconf['pkeyName']) {
-                $pkeyName = $dbconf['pkeyName'];
-            }
-            if (isset($dbconf['pkeyname']) && $dbconf['pkeyname']) {
-                $pkeyName = $dbconf['pkeyname'];
-            }
+        if (isset($dbconf['tableno']) && $dbconf['tableno']) {
+            $tableno = $dbconf['tableno'];
+        }
+        if (isset($dbconf['database']) && $dbconf['database']) {
+            $database = $dbconf['database'];
+        }
+        if (isset($dbconf['pkeyName']) && $dbconf['pkeyName']) {
+            $pkeyName = $dbconf['pkeyName'];
+        }
+        if (isset($dbconf['pkeyname']) && $dbconf['pkeyname']) {
+            $pkeyName = $dbconf['pkeyname'];
         }
 
         // 修正 $database

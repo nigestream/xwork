@@ -388,25 +388,24 @@ class XController
 
     // 拦截器 TODO by sjp : 正考虑消灭配置文件，直接返回通用拦截器 ApplicationSessionModifyInterceptor
     private function loadInteceptor() {
-        return [];
-        $arrays = array();
-
-        if (isset($this->actionMaps) && //
-            isset($this->actionMaps[$this->action]) && //
-            isset($this->actionMaps[$this->action][$this->method]) && //
-            isset($this->actionMaps[$this->action][$this->method][self::INTERCEPTOR_KEY])) {
-
-            // 特定配置
-            $interceptors = $this->actionMaps[$this->action][$this->method][self::INTERCEPTOR_KEY];
-        } else {
-            // 通用配置
-            $interceptors = $this->actionMaps[self::DEFAULT_INTERCEPTOR];
-        }
-
-        foreach ($interceptors as $interceptorClassName) {
-            $arrays[] = new $interceptorClassName();
-        }
-        return $arrays;
+        return [new ApplicationSessionModifyInterceptor()];
+//        $arrays = array();
+//        if (isset($this->actionMaps) && //
+//            isset($this->actionMaps[$this->action]) && //
+//            isset($this->actionMaps[$this->action][$this->method]) && //
+//            isset($this->actionMaps[$this->action][$this->method][self::INTERCEPTOR_KEY])) {
+//
+//            // 特定配置
+//            $interceptors = $this->actionMaps[$this->action][$this->method][self::INTERCEPTOR_KEY];
+//        } else {
+//            // 通用配置
+//            $interceptors = $this->actionMaps[self::DEFAULT_INTERCEPTOR];
+//        }
+//
+//        foreach ($interceptors as $interceptorClassName) {
+//            $arrays[] = new $interceptorClassName();
+//        }
+//        return $arrays;
     }
 
     // 拦截器before
