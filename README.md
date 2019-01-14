@@ -6,7 +6,7 @@ XWork
   数据操作完全面向对象，自研的ORM模块配合工作单元，让您飞一般的玩转数据。当然这里牺牲了一点性能，但是对于web项目来说，那点性能可以忽略不计（个人认为，不喜勿喷）
 
 ## 架构
-![xwork](http://st.daxiangbanka.com/photo/1/b6/1b6683dfe7127ba1ead18b34f12b9a66.png)  
+![xwork](http://st.daxiangbanka.com/photo/3/25/32586236dfc8cd178e87f134b8f6431e.png)  
 架构还是标准的mvc+dao框架架构，特殊的是xwork深度结合ORM，这里没有选择，必须使用ORM。。。  
 orm和工作单元的深度结合，使得关于表设计和逻辑组织都非常的简单、迅速和高效。
 ## 项目结构
